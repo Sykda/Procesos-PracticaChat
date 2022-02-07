@@ -3,7 +3,6 @@ package chat;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -14,16 +13,15 @@ public class Cliente {
 
 		String respuesta;
 
-		// Create a client socket, connect to server
+		// Socket para conectar con el servidor
 		Socket clientSocket = new Socket("127.0.0.1", 2009);
 
-		
-
-		// Create output stream, attached to socket
+		// Stream del socket para enviar
 		DataOutputStream outToClient = new DataOutputStream(clientSocket.getOutputStream());
-		// Create input stream, attached to socket
+		// Stream del socket para leer
 		BufferedReader inFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
+		// Scanner para meter la respuesta
 		Scanner sc = new Scanner(System.in);
 
 		while (true) {
@@ -31,10 +29,10 @@ public class Cliente {
 			System.out.println("\nIntroduce mensaje para el servidor");
 			String mensaje = sc.nextLine();
 
-			// Write out line to socket
+			// Enviamos respuesta al servidor
 			outToClient.writeBytes(mensaje + '\n');
 
-			// Read in line from socket
+			// Leemos desde el servidor
 			respuesta = inFromClient.readLine();
 
 			System.out.println("Servidor: " + respuesta);
